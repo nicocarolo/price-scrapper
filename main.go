@@ -1,22 +1,28 @@
 package main
 
 import (
-	"fmt"
+	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/price-scrapper/src/operations"
 )
 
 func main() {
-	fmt.Println("Hello world")
+	port := os.Getenv("PORT")
 
-	r := gin.Default()
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
 
-	r.GET("/ping", operations.Ping)
+	router := gin.New()
+	router.Use(gin.Logger())
 
-	r.POST("/add", operations.Add)
+	router.GET("/ping", operations.Ping)
 
-	r.POST("/process", operations.Process)
+	router.POST("/add", operations.Add)
 
-	r.Run(":3000")
+	router.POST("/process", operations.Process)
+
+	router.Run(":" + port)
 }
