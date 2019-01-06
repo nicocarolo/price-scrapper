@@ -3,10 +3,6 @@
 	"ignore": "test",
 	"package": [
 		{
-			"path": "add",
-			"revision": ""
-		},
-		{
 			"path": "appengine",
 			"revision": ""
 		},
@@ -71,10 +67,6 @@
 			"path": "github.com/gin-gonic/gin/internal/json",
 			"revision": "d8fb18c33b1657271b6302e0899d033902012f49",
 			"revisionTime": "2018-12-31T01:02:53Z"
-		},
-		{
-			"path": "github.com/gin-gonic/gin/json",
-			"revision": ""
 		},
 		{
 			"checksumSHA1": "afLqBfX9SeIP6eeTZb3WwdTFaOo=",
@@ -387,11 +379,7 @@
 			"path": "gopkg.in/yaml.v2",
 			"revision": "51d6538a90f86fe93ac480b35f37b2be17fef232",
 			"revisionTime": "2018-11-15T11:05:04Z"
-		},
-		{
-			"path": "govendor",
-			"revision": ""
 		}
 	],
-	"rootPath": "github.com/go-price-scrapper"
+	"rootPath": "github.com/price-scrapper"
 }
