@@ -18,6 +18,7 @@ func Process(c *gin.Context) {
 		c.JSON(599, gin.H{
 			"message": "process",
 		})
+		return
 	}
 	defer session.Close()
 
