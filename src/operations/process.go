@@ -3,14 +3,27 @@ package operations
 import (
 	"fmt"
 	"regexp"
-	"sync"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gocolly/colly"
+	"github.com/price-scrapper/src/models"
+	mgo "gopkg.in/mgo.v2"
 )
 
 func Process(c *gin.Context) {
-	var sm sync.Map
+	url := "mongodb://heroku_rjnls62m:dM6CYayNQu8qr9b@ds149984.mlab.com:49984/heroku_rjnls62m"
+	session, err := mgo.Dial(url)
+	if err != nil {
+		fmt.Printf("Can't connect to mongo, go error %v\n", err)
+		c.JSON(599, gin.H{
+			"message": "process",
+		})
+	}
+	defer session.Close()
+
+	session.SetSafe(&mgo.Safe{})
+
+	collection := session.DB("heroku_rjnls62m").C("products")
 
 	collector := colly.NewCollector(
 		colly.URLFilters(
@@ -45,14 +58,7 @@ func Process(c *gin.Context) {
 		fmt.Printf("sku found: %q \n", sku)
 		fmt.Printf("price found: %q \n", price)
 
-		sm.Store(sku, name+": "+price)
-		result, ok := sm.Load(sku)
-		if ok {
-			fmt.Println(result.(string))
-		} else {
-			fmt.Println("value not found for key: " + sku)
-		}
-
+		err = collection.Insert(&models.Product{Sku: sku, Name: name})
 	})
 
 	// Before making a request print "Visiting ..."
