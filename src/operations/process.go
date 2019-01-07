@@ -39,8 +39,6 @@ func Process(c *gin.Context) {
 	// On every a element which has href attribute call callback
 	collector.OnHTML("a[href]", func(e *colly.HTMLElement) {
 		link := e.Attr("href")
-		// Print link
-		fmt.Printf("Link found: %q -> %s\n", e.Text, link)
 		// Visit link found on page
 		// Only those links are visited which are in AllowedDomains
 		collector.Visit(e.Request.AbsoluteURL(link))
@@ -54,11 +52,8 @@ func Process(c *gin.Context) {
 		name := e.ChildText("h1.name")
 		sku := e.ChildText("div.skuReference")
 		price := e.ChildText("strong.skuBestPrice")
-		// Print link
-		fmt.Printf("Name found: %q \n", name)
-		fmt.Printf("sku found: %q \n", sku)
-		fmt.Printf("price found: %q \n", price)
 
+		fmt.Printf("Saving product: %s -> %s %s\n", sku, name, price)
 		err = collection.Insert(&models.Product{Sku: sku, Name: name})
 	})
 
