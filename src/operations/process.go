@@ -5,7 +5,7 @@ import (
 	"regexp"
 
 	"github.com/gin-gonic/gin"
-	mgo "github.com/globalsign/mgo"
+	"github.com/globalsign/mgo"
 	"github.com/gocolly/colly"
 	"github.com/price-scrapper/src/models"
 )

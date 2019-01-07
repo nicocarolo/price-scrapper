@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
-	mgo "gopkg.in/mgo.v2"
+	"github.com/globalsign/mgo"
 )
 
 func Ping(c *gin.Context) {
