@@ -11,7 +11,7 @@ import (
 )
 
 func Process(c *gin.Context) {
-	url := "mongodb://api:@dM6CYayNQu8qr9b.mlab.com:49984/heroku_rjnls62m"
+	url := "mongodb://api:dM6CYayNQu8qr9b@ds149984.mlab.com:49984/heroku_rjnls62m"
 	session, err := mgo.Dial(url)
 	if err != nil {
 		fmt.Printf("Can't connect to mongo, go error %v\n", err)
