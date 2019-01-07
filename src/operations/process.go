@@ -5,9 +5,9 @@ import (
 	"regexp"
 
 	"github.com/gin-gonic/gin"
+	mgo "github.com/globalsign/mgo"
 	"github.com/gocolly/colly"
 	"github.com/price-scrapper/src/models"
-	mgo "gopkg.in/mgo.v2"
 )
 
 func Process(c *gin.Context) {

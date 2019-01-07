@@ -1,12 +1,8 @@
-// Package mgo offers a rich MongoDB driver for Go.
+// Package mgo (pronounced as "mango") offers a rich MongoDB driver for Go.
 //
-// #########################################################
+// Detailed documentation of the API is available at GoDoc:
 //
-// THIS DRIVER IS UNMAINTAINED! See here for details:
-//
-// https://github.com/go-mgo/mgo/blob/v2-unstable/README.md
-//
-// #########################################################
+//     https://godoc.org/github.com/globalsign/mgo
 //
 // Usage of the driver revolves around the concept of sessions.  To
 // get started, obtain a session using the Dial function:
@@ -28,6 +24,11 @@
 // Every session created must have its Close method called at the end
 // of its life time, so its resources may be put back in the pool or
 // collected, depending on the case.
+//
+// There is a sub-package that provides support for BSON, which can be
+// used by itself as well:
+//
+//    https://godoc.org/github.com/globalsign/mgo/bson
 //
 // For more details, see the documentation for the types and methods.
 //
