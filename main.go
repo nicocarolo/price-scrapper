@@ -12,7 +12,8 @@ func main() {
 	port := os.Getenv("PORT")
 
 	if port == "" {
-		log.Fatal("$PORT must be set")
+		port = "3000"
+		log.Println("$PORT must be set")
 	}
 
 	router := gin.New()
@@ -23,6 +24,8 @@ func main() {
 	router.POST("/add", operations.Add)
 
 	router.POST("/process", operations.Process)
+
+	router.POST("/prueba", operations.Prueba)
 
 	router.Run(":" + port)
 }
