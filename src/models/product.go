@@ -8,5 +8,5 @@ type Price struct {
 type Product struct {
 	Sku    string
 	Name   string
-	Prices []Price
+	Prices map[string]Price
 }

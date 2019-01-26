@@ -1,26 +1,19 @@
 package operations
 
 import (
+	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/globalsign/mgo/bson"
+	"github.com/price-scrapper/src/db"
+	"github.com/price-scrapper/src/models"
 )
 
-type request struct {
-	Merchant                string `json:"merchant" binding:"required"`
-	Subsidiarys_url         string `json:"subsidiarys_url" binding:"required"`
-	Subsidiarys_selector    string `json:"subsidiarys_selector" binding:"required"`
-	Products_url            string `json:"products_url" binding:"required"`
-	Products_id_selector    string `json:"products_id_selector" binding:"required"`
-	Products_name_selector  string `json:"products_name_selector" binding:"required"`
-	Products_price_selector string `json:"products_price_selector" binding:"required"`
-	Price_offset            int32  `json:"price_offset" binding:"required"`
-	Price_decimal_separator string `json:"price_decimal_separator" binding:"required"`
-}
-
 func Add(c *gin.Context) {
-	var json request
-	err := c.BindJSON(json)
+	var merchant models.Merchant
+	err := c.BindJSON(&merchant)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -28,19 +21,58 @@ func Add(c *gin.Context) {
 		})
 		return
 	}
-	err = isValidRequest(json)
+
+	session, err := db.GetMongoSession()
 	if err != nil {
+		fmt.Printf("Can't connect to mongo, go error %v\n", err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "Can't connect to database",
+		})
+		return
+	}
+	defer db.CloseMongoSession(session)
+
+	collection := session.DB("heroku_rjnls62m").C("merchants")
+
+	var results []models.Merchant
+	err = collection.Find(bson.M{
+		"name":                    merchant.Name,
+		"products_url":            merchant.Products_url,
+		"subsidiarys_url":         merchant.Subsidiarys_url,
+		"products_id_selector":    merchant.Products_id_selector,
+		"products_name_selector":  merchant.Products_name_selector,
+		"products_price_selector": merchant.Products_price_selector,
+	}).All(&results)
+
+	if len(results) > 0 {
+		log.Println(fmt.Sprintf("Merchant %s exists", merchant.Name))
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Not valid request: " + err.Error(),
+			"error": "Merchant already exists",
 		})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"message": "add",
-	})
-}
+	merchant.Id = bson.NewObjectId()
+	err = collection.Insert(&merchant)
+	if err != nil {
+		log.Fatal(err)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Cannot create merchant",
+		})
+		return
+	}
 
-func isValidRequest(request request) error {
-	return nil
+	productsQuantity := collectProducts(merchant.Id, session)
+	if productsQuantity <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Cannot get products",
+		})
+		collection.Remove(bson.M{"_id": merchant.Id})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message":  "Added merchant",
+		"products": productsQuantity,
+	})
 }

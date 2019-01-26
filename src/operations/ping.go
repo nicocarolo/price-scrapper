@@ -40,16 +40,21 @@ func Prueba(c *gin.Context) {
 
 	collection := session.DB("heroku_rjnls62m").C("products")
 
-	result := models.Product{}
-	err = collection.Find(bson.M{"sku": "1"}).One(&result)
+	var result models.Product
+
+	err = collection.Find(bson.M{"sku": "12440701009"}).One(&result)
 	if err != nil {
 		println("no es nil")
 		log.Fatal(err)
 	}
+	result.Prices["id.Hex()"] = models.Price{
+		Merchant: "id.Hex()",
+		Value:    "999",
+	}
 	println(result.Name)
 	println(result.Sku)
 	println(result.Prices)
-	result.Name = "Cerveza Corona Coronita 210 Ml actualizadoooo"
+	// result.Name = "Cerveza Corona Coronita 210 Ml actualizadoooo"
 	err = collection.Update(bson.M{"sku": result.Sku}, result)
 	if err != nil {
 		log.Fatal(err)
