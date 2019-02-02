@@ -141,11 +141,11 @@ func collectProducts(id bson.ObjectId, session *mgo.Session) (int, error) {
 			"application/json", bytes.NewBuffer(jsonValue))
 		defer jobResponse.Body.Close()
 		if postErr != nil {
-			log.Println(fmt.Errorf("Cannot post to job: %s", postErr.Error()))
+			log.Println(fmt.Errorf("Error while post to job: %s", postErr.Error()))
 		} else {
 			body, _ := ioutil.ReadAll(jobResponse.Body)
 			if jobResponse.StatusCode != http.StatusOK {
-				log.Println(fmt.Errorf("Error while post to job: %s", string(body)))
+				log.Println(fmt.Errorf("Not succesful post to job: %s", string(body)))
 			} else {
 				log.Println("Saving url to job: %s", string(body))
 			}
