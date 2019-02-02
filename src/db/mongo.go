@@ -1,21 +1,12 @@
 package db
 
 import (
-	"os"
-
 	"github.com/globalsign/mgo"
+	"github.com/price-scrapper/src/config"
 )
 
 func GetMongoSession() (*mgo.Session, error) {
-	env := os.Getenv("ENVIRONMENT")
-	var url string
-
-	if env == "PRODUCTION" {
-		url = "mongodb://api:dM6CYayNQu8qr9b@ds149984.mlab.com:49984/heroku_rjnls62m"
-	} else {
-		url = "localhost"
-	}
-	session, err := mgo.Dial(url)
+	session, err := mgo.Dial(config.GetURLDB())
 	if err != nil {
 		return nil, err
 	}

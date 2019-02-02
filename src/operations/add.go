@@ -6,7 +6,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
+	"github.com/price-scrapper/src/config"
 	"github.com/price-scrapper/src/db"
 	"github.com/price-scrapper/src/models"
 )
@@ -32,7 +34,7 @@ func Add(c *gin.Context) {
 	}
 	defer db.CloseMongoSession(session)
 
-	collection := session.DB("heroku_rjnls62m").C("merchants")
+	collection := session.DB(config.PriceDB).C(config.MerchantsCollection)
 
 	var results []models.Merchant
 	err = collection.Find(bson.M{
@@ -55,24 +57,34 @@ func Add(c *gin.Context) {
 	merchant.Id = bson.NewObjectId()
 	err = collection.Insert(&merchant)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Cannot create merchant",
 		})
 		return
 	}
 
-	productsQuantity := collectProducts(merchant.Id, session)
-	if productsQuantity <= 0 {
+	productsQuantity, collectError := collectProducts(merchant.Id, session)
+	if collectError != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Cannot get products",
+			"error": collectError.Error(),
 		})
-		collection.Remove(bson.M{"_id": merchant.Id})
-		return
+	} else {
+		if productsQuantity > 0 {
+			c.JSON(http.StatusOK, gin.H{
+				"message":  "Added merchant",
+				"products": productsQuantity,
+			})
+		} else {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "Cannot found products",
+			})
+			collection.Remove(bson.M{"_id": merchant.Id})
+		}
 	}
+}
 
-	c.JSON(http.StatusOK, gin.H{
-		"message":  "Added merchant",
-		"products": productsQuantity,
-	})
+func collectSubsidiarys(id bson.ObjectId, session *mgo.Session) int {
+	subsidiarysQuantity := 0
+	return subsidiarysQuantity
 }

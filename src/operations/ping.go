@@ -45,11 +45,11 @@ func Prueba(c *gin.Context) {
 	err = collection.Find(bson.M{"sku": "12440701009"}).One(&result)
 	if err != nil {
 		println("no es nil")
-		log.Fatal(err)
+		log.Println(err)
 	}
 	result.Prices["id.Hex()"] = models.Price{
 		Merchant: "id.Hex()",
-		Value:    "999",
+		Value:    99.9,
 	}
 	println(result.Name)
 	println(result.Sku)
@@ -57,7 +57,7 @@ func Prueba(c *gin.Context) {
 	// result.Name = "Cerveza Corona Coronita 210 Ml actualizadoooo"
 	err = collection.Update(bson.M{"sku": result.Sku}, result)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 
 	}
 	c.JSON(200, gin.H{

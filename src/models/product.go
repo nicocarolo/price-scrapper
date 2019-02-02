@@ -2,7 +2,7 @@ package models
 
 type Price struct {
 	Merchant string
-	Value    string
+	Value    float64
 }
 
 type Product struct {
