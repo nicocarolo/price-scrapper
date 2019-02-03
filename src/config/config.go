@@ -23,9 +23,9 @@ func GetWebDiffURL() string {
 	var url string
 
 	if env == "PRODUCTION" {
-		url = "https://go-webdiff-job.herokuapp.com//%s"
+		url = "https://go-webdiff-job.herokuapp.com/%s"
 	} else {
-		url = "localhost:4000/%s"
+		url = "http://localhost:4000/%s"
 	}
 	return url
 }

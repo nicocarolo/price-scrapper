@@ -45,7 +45,7 @@ func Process(c *gin.Context) {
 	}
 	defer db.CloseMongoSession(session)
 
-	productsQuantity, collectError := collectProducts(bson.NewObjectId(), session)
+	productsQuantity, collectError := collectProducts(bson.ObjectIdHex(request.Name), session)
 	if collectError != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": collectError.Error(),
@@ -137,7 +137,7 @@ func collectProducts(id bson.ObjectId, session *mgo.Session) (int, error) {
 
 		values := map[string]string{"id": id.Hex(), "url": url}
 		jsonValue, _ := json.Marshal(values)
-		jobResponse, postErr := http.Post(fmt.Sprintf(config.GetWebDiffURL(), "/add"),
+		jobResponse, postErr := http.Post(fmt.Sprintf(config.GetWebDiffURL(), "add"),
 			"application/json", bytes.NewBuffer(jsonValue))
 		defer jobResponse.Body.Close()
 		if postErr != nil {
