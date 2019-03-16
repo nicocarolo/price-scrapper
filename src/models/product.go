@@ -6,7 +6,7 @@ type Price struct {
 }
 
 type Product struct {
-	Sku    string
-	Name   string
-	Prices map[string]Price
+	Sku    string           `json:"sku,omitempty" binding:"required"`
+	Name   string           `json:"name,omitempty" binding:"required"`
+	Prices map[string]Price `json:"prices,omitempty" binding:"required"`
 }

@@ -177,6 +177,12 @@
 			"revisionTime": "2018-11-28T19:23:52Z"
 		},
 		{
+			"checksumSHA1": "yNyE9MrpDJQAxOxSipSIBgBhuNQ=",
+			"path": "github.com/google/uuid",
+			"revision": "9b3b1e0f5f99ae461456d768e7d301a7acdaa2d8",
+			"revisionTime": "2018-09-17T14:00:05Z"
+		},
+		{
 			"checksumSHA1": "2yHsOHB95SPL7kfDi21cDpq6Sxg=",
 			"path": "github.com/json-iterator/go",
 			"revision": "d05f387f50c0c406889b62cb5ec51c76a64d89ee",
@@ -187,6 +193,12 @@
 			"path": "github.com/kennygrant/sanitize",
 			"revision": "06ec0d0dbcd497d01e5189b16f5263f712e61a8e",
 			"revisionTime": "2018-08-06T07:34:57Z"
+		},
+		{
+			"checksumSHA1": "SbguDK5lY8uhaHNrmJmNbiWIGM0=",
+			"path": "github.com/kr/text",
+			"revision": "e2ffdb16a802fe2bb95e2e35ff34f0e53aeef34f",
+			"revisionTime": "2018-05-06T08:24:08Z"
 		},
 		{
 			"checksumSHA1": "GiVgQkx5acnq+JZtYiuHPlhHoso=",
@@ -205,6 +217,12 @@
 			"path": "github.com/modern-go/reflect2",
 			"revision": "94122c33edd36123c84d5368cfb2b69df93a0ec8",
 			"revisionTime": "2018-07-18T01:23:57Z"
+		},
+		{
+			"checksumSHA1": "XcxzjRBWzEeYPJabIU7QhCmlMns=",
+			"path": "github.com/pretty",
+			"revision": "73f6ac0b30a98e433b289500d779f50c1a6f0712",
+			"revisionTime": "2018-05-06T08:33:45Z"
 		},
 		{
 			"checksumSHA1": "EEXppdradk5G/UaQUQ95BQ9n7uw=",
@@ -357,6 +375,12 @@
 			"revisionTime": "2018-12-15T12:10:58Z"
 		},
 		{
+			"checksumSHA1": "7Ev/X4Xe8P3961myez/hBKO05ig=",
+			"path": "golang.org/x/time/rate",
+			"revision": "85acf8d2951cb2a3bde7632f9ff273ef0379bcbd",
+			"revisionTime": "2018-11-08T03:19:45Z"
+		},
+		{
 			"checksumSHA1": "wBowBAayEyH0+s037I7T42rHm34=",
 			"path": "google.golang.org/appengine/internal",
 			"revision": "e9657d882bb81064595ca3b56cbe2546bbabf7b1",
@@ -397,6 +421,18 @@
 			"path": "google.golang.org/appengine/urlfetch",
 			"revision": "e9657d882bb81064595ca3b56cbe2546bbabf7b1",
 			"revisionTime": "2018-12-17T20:59:03Z"
+		},
+		{
+			"checksumSHA1": "HCttyAp1N9l3fd1fXUh+pcDQkaE=",
+			"path": "googlemaps.github.io/maps",
+			"revision": "be134e760d707b2057d6a68668e19c509147d805",
+			"revisionTime": "2019-02-06T00:35:05Z"
+		},
+		{
+			"checksumSHA1": "T47E4DD/+UCGq0rAc70yGCEWJ0w=",
+			"path": "googlemaps.github.io/maps/internal",
+			"revision": "be134e760d707b2057d6a68668e19c509147d805",
+			"revisionTime": "2019-02-06T00:35:05Z"
 		},
 		{
 			"checksumSHA1": "P/k5ZGf0lEBgpKgkwy++F7K1PSg=",

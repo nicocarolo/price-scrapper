@@ -6,6 +6,11 @@ const PriceDB = "heroku_rjnls62m"
 const MerchantsCollection = "merchants"
 const ProductsCollection = "products"
 
+const GoogleApiKey = "AIzaSyBoI5o-cwADaZTvIqalg08KkNH90OSjAPw"
+
+const MaxTimeToWaitOnProducts = 1
+const MaxTimeToScrap = 1
+
 func GetURLDB() string {
 	env := os.Getenv("ENVIRONMENT")
 	var url string

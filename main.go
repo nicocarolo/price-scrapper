@@ -25,6 +25,8 @@ func main() {
 
 	router.POST("/process", operations.Process)
 
+	router.GET("/product", operations.Product)
+
 	router.POST("/prueba", operations.Prueba)
 
 	router.Run(":" + port)
